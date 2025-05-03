@@ -1,0 +1,53 @@
+<div class="container mt-5" *ngIf="book">
+  <ng-container *ngIf="!isEditing; else editForm">
+    <div class="row">
+      <div class="col-md-5 mb-4">
+        <img
+          [src]="book.imageLinks.thumbnail"
+          class="img-fluid rounded shadow w-100"
+          style="max-height: 600px; object-fit: cover"
+          alt="{{ book.title }}"
+        />
+      </div>
+      <div class="col-md-7">
+        <h1 class="mb-3">{{ book.title }}</h1>
+        <h4 class="text-muted mb-2">by {{ book.authors.join(", ") }}</h4>
+        <p class="mb-1"><strong>Publisher:</strong> {{ book.publisher }}</p>
+        <p class="mb-1">
+          <strong>Published:</strong>
+          {{ book.publishedDate | date : "longDate" }}
+        </p>
+
+        <p class="mb-1"><strong>Language:</strong> {{ book.language }}</p>
+        <p class="mb-1"><strong>Pages:</strong> {{ book.pageCount }}</p>
+        <p class="mb-3">
+          <strong>Categories:</strong> {{ book.categories.join(", ") }}
+        </p>
+        <p
+          class="alert alert-warning mt-3"
+          *ngIf="book?.publishedDate | oldBook as message"
+        >
+          {{ message }}
+        </p>
+        <div class="card bg-light p-4 mb-4">
+          <h3>Description</h3>
+          <p class="lead">{{ book.description }}</p>
+        </div>
+
+        <button class="btn btn-outline-primary me-2" (click)="goBack()">
+          ← Back to Books
+        </button>
+
+        <button class="btn btn-warning" (click)="startEdit()">
+          ✏️ Edit Book
+        </button>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #editForm>
+    <h2>Edit Book</h2>
+    <app-edit-book [bookToEdit]="book"></app-edit-book>
+    <button class="btn btn-secondary mt-3" (click)="goBack()">← Cancel</button>
+  </ng-template>
+</div>

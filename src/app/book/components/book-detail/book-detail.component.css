@@ -1,0 +1,10 @@
+img {
+  max-height: 500px;
+  object-fit: contain;
+  border: 1px solid #ddd;
+}
+
+.card {
+  border: none;
+  border-left: 4px solid #007bff;
+}

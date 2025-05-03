@@ -1,0 +1,90 @@
+<form #bookForm="ngForm" (ngSubmit)="onSubmit(bookForm)" class="p-4 border">
+  <div class="mb-3">
+    <label>Title</label>
+    <input
+      name="title"
+      [(ngModel)]="book.title"
+      required
+      class="form-control"
+    />
+    <div *ngIf="bookForm.submitted && !book.title" class="text-danger">
+      Title is required.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Authors (comma-separated)</label>
+    <input name="authors" [(ngModel)]="book.authors" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label>Publisher</label>
+    <input
+      name="publisher"
+      [(ngModel)]="book.publisher"
+      required
+      class="form-control"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label>Published Date</label>
+    <input
+      name="publishedDate"
+      [(ngModel)]="book.publishedDate"
+      required
+      class="form-control"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label>Description</label>
+    <textarea
+      name="description"
+      [(ngModel)]="book.description"
+      required
+      class="form-control"
+    ></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label>Page Count</label>
+    <input
+      type="number"
+      name="pageCount"
+      [(ngModel)]="book.pageCount"
+      required
+      class="form-control"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label>Categories</label>
+    <input
+      name="categories"
+      [(ngModel)]="book.categories"
+      class="form-control"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label>Image URL</label>
+    <input
+      name="thumbnail"
+      [(ngModel)]="book.imageLinks.thumbnail"
+      class="form-control"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label>Language</label>
+    <input
+      name="language"
+      [(ngModel)]="book.language"
+      required
+      class="form-control"
+    />
+  </div>
+
+  <button class="btn btn-success">Submit</button>
+</form>

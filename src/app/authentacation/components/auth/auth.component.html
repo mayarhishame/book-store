@@ -1,0 +1,15 @@
+<button
+  *ngIf="!isUserLogged"
+  class="btn btn-success"
+  (click)="login()"
+>
+  Login
+</button>
+
+<button
+  *ngIf="isUserLogged"
+  class="btn btn-danger"
+  (click)="logout()"
+>
+  Logout
+</button>
