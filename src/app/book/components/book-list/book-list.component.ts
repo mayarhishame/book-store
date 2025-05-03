@@ -5,6 +5,8 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../authentacation/services/auth.service';
 import { Router } from '@angular/router';
+import { BookModule } from '../../book.module';
+import { Book } from '../../../models/book';
 
 @Component({
   selector: 'app-book-list',
@@ -13,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrl: './book-list.component.css',
 })
 export class BookListComponent {
-  books: any[] = [];
+  books: Book[] = [];
   selectedBook: any = null;
   isAuthenticated = false;
 
