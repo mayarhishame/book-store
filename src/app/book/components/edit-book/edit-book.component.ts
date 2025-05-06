@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../../models/book';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-book',
@@ -9,14 +11,30 @@ import { Book } from '../../../models/book';
   templateUrl: './edit-book.component.html',
   styleUrl: './edit-book.component.css',
 })
-export class EditBookComponent {
-  @Input() bookToEdit!: Book;
-
+export class EditBookComponent implements OnInit {
   bookForm!: FormGroup;
+  bookId!: string;
+  bookToEdit!: Book;
 
-  constructor(private fb: FormBuilder, private bookService: BookService) {}
+  constructor(
+    private fb: FormBuilder,
+    private bookService: BookService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.initForm();
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.bookId = id;
+        this.loadBook(id);
+      }
+    });
+  }
+
+  initForm() {
     this.bookForm = this.fb.group({
       title: ['', Validators.required],
       authors: [''],
@@ -28,24 +46,33 @@ export class EditBookComponent {
       thumbnail: [''],
       language: ['', Validators.required],
     });
+  }
 
-    if (this.bookToEdit) {
-      this.bookForm.patchValue({
-        title: this.bookToEdit.title,
-        authors: this.bookToEdit.authors?.join(', '),
-        publisher: this.bookToEdit.publisher,
-        publishedDate: this.bookToEdit.publishedDate,
-        description: this.bookToEdit.description,
-        pageCount: this.bookToEdit.pageCount,
-        categories: this.bookToEdit.categories?.join(', '),
-        thumbnail: this.bookToEdit.imageLinks?.thumbnail || '',
-        language: this.bookToEdit.language,
-      });
-    }
+  loadBook(id: string) {
+    this.bookService.getBook(id).subscribe({
+      next: (book) => {
+        this.bookToEdit = book;
+        this.bookForm.patchValue({
+          title: book.title,
+          authors: book.authors?.join(', '),
+          publisher: book.publisher,
+          publishedDate: book.publishedDate,
+          description: book.description,
+          pageCount: book.pageCount,
+          categories: book.categories?.join(', '),
+          thumbnail: book.imageLinks?.thumbnail || '',
+          language: book.language,
+        });
+      },
+      error: (err) => {
+        Swal.fire('Error', 'Failed to load book. ' + err.message, 'error');
+        this.router.navigate(['/']);
+      },
+    });
   }
 
   submitBook() {
-    if (this.bookForm.valid) {
+    if (this.bookForm.valid && this.bookToEdit) {
       const bookData = this.bookForm.value;
       const updatedBook: Book = {
         ...this.bookToEdit,
@@ -60,8 +87,21 @@ export class EditBookComponent {
       };
 
       this.bookService.updateBook(updatedBook, 'currentlyReading').subscribe({
-        next: () => alert('Book updated!'),
-        error: (err) => alert(err.message),
+        next: () => {
+          Swal.fire({
+            title: 'Updated!',
+            text: 'Book updated successfully!',
+            icon: 'success',
+          }).then(() => {
+            this.router.navigate(['/']);
+          });
+        },
+        error: (err) =>
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! ' + err.message,
+          }),
       });
     } else {
       this.bookForm.markAllAsTouched();

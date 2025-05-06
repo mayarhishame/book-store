@@ -37,7 +37,7 @@ export class BookService {
   }
 
   updateBook(book: Book, shelf: string): Observable<any> {
-    const body = JSON.stringify({ shelf });
+    const body = JSON.stringify(book);
     const headers = this.headers.set('Content-Type', 'application/json');
     return this.http
       .put(`${this.api}/books/${book.id}`, body, { headers })

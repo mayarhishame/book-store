@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Book } from '../../../models/book';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-detail',
@@ -12,7 +13,7 @@ export class BookDetailComponent {
   @Output() backClicked = new EventEmitter<void>();
 
   isEditing = false;
-
+  constructor(private router: Router) {}
   goBack() {
     if (this.isEditing) {
       this.isEditing = false;
@@ -22,6 +23,6 @@ export class BookDetailComponent {
   }
 
   startEdit() {
-    this.isEditing = true;
+    this.router.navigate(['/', 'edit', this.book.id]);
   }
 }
