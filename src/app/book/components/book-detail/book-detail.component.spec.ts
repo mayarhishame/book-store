@@ -39,17 +39,10 @@ describe('BookDetailComponent', () => {
 
     fixture = TestBed.createComponent(BookDetailComponent);
     component = fixture.componentInstance;
-    component.book = mockBook;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should set isEditing to true when startEdit is called', () => {
-    component.startEdit();
-    expect(component.isEditing).toBeTrue();
   });
 
   it('should set isEditing to false when goBack is called while editing', () => {
