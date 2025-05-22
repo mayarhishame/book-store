@@ -1,7 +1,16 @@
 <form [formGroup]="bookForm" (ngSubmit)="submitBook()" class="p-4 border">
+  <h2 id="bookFormTitle" class="mb-4">Edit Book</h2>
+
   <div class="mb-3">
-    <label>Title</label>
-    <input formControlName="title" class="form-control" />
+    <label for="title" class="form-label"
+      >Title <span class="text-danger">*</span></label
+    >
+    <input
+      id="title"
+      formControlName="title"
+      class="form-control"
+      aria-required="true"
+    />
     <div
       *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched"
       class="text-danger"
@@ -11,44 +20,58 @@
   </div>
 
   <div class="mb-3">
-    <label>Authors</label>
-    <input formControlName="authors" class="form-control" />
+    <label for="authors" class="form-label">Authors</label>
+    <input id="authors" formControlName="authors" class="form-control" />
   </div>
 
   <div class="mb-3">
-    <label>Publisher</label>
-    <input formControlName="publisher" class="form-control" />
+    <label for="publisher" class="form-label">Publisher</label>
+    <input id="publisher" formControlName="publisher" class="form-control" />
   </div>
 
   <div class="mb-3">
-    <label>Published Date</label>
-    <input formControlName="publishedDate" class="form-control" />
+    <label for="publishedDate" class="form-label">Published Date</label>
+    <input
+      id="publishedDate"
+      formControlName="publishedDate"
+      class="form-control"
+    />
   </div>
 
   <div class="mb-3">
-    <label>Description</label>
-    <textarea formControlName="description" class="form-control"></textarea>
+    <label for="description" class="form-label">Description</label>
+    <textarea
+      id="description"
+      formControlName="description"
+      class="form-control"
+    ></textarea>
   </div>
 
   <div class="mb-3">
-    <label>Page Count</label>
-    <input type="number" formControlName="pageCount" class="form-control" />
+    <label for="pageCount" class="form-label">Page Count</label>
+    <input
+      type="number"
+      id="pageCount"
+      formControlName="pageCount"
+      class="form-control"
+      min="1"
+    />
   </div>
 
   <div class="mb-3">
-    <label>Categories</label>
-    <input formControlName="categories" class="form-control" />
+    <label for="categories" class="form-label">Categories</label>
+    <input id="categories" formControlName="categories" class="form-control" />
   </div>
 
   <div class="mb-3">
-    <label>Image URL</label>
-    <input formControlName="thumbnail" class="form-control" />
+    <label for="thumbnail" class="form-label">Image URL</label>
+    <input id="thumbnail" formControlName="thumbnail" class="form-control" />
   </div>
 
   <div class="mb-3">
-    <label>Language</label>
-    <input formControlName="language" class="form-control" />
+    <label for="language" class="form-label">Language</label>
+    <input id="language" formControlName="language" class="form-control" />
   </div>
 
-  <button class="btn btn-primary">Save</button>
+  <button type="submit" class="btn btn-primary">Save</button>
 </form>

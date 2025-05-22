@@ -1,0 +1,7 @@
+.navbar {
+  width: 100%;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+}

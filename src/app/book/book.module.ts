@@ -10,6 +10,8 @@ import { AddBookComponent } from './components/add-book/add-book.component';
 import { EditBookComponent } from './components/edit-book/edit-book.component';
 import { OldBookPipe } from './pipes/old-book.pipe';
 import { AuthentacationModule } from '../authentacation/authentacation.module';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HelpPageComponent } from './components/help-page/help-page.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { AuthentacationModule } from '../authentacation/authentacation.module';
     BookListComponent,
     AddBookComponent,
     EditBookComponent,
+    HelpPageComponent,
+    NavbarComponent,
   ],
   imports: [
     RouterOutlet,
