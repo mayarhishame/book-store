@@ -1,46 +1,66 @@
-<div class="container mt-5" *ngIf="book">
+<div
+  class="container mt-5"
+  *ngIf="book"
+  role="main"
+  aria-labelledby="bookTitle"
+>
   <div class="row">
     <div class="col-md-5 mb-4">
-      <img
-        [src]="book.imageLinks.thumbnail"
-        class="img-fluid rounded shadow w-100"
-        style="max-height: 600px; object-fit: cover"
-        alt="{{ book.title }}"
-      />
+      <figure>
+        <img
+          [src]="book.imageLinks.thumbnail"
+          class="img-fluid rounded shadow w-100"
+          style="max-height: 600px; object-fit: cover"
+          [alt]="'Cover image of ' + book.title"
+        />
+        <figcaption class="visually-hidden">{{ book.title }} cover</figcaption>
+      </figure>
     </div>
+
     <div class="col-md-7">
-      <h1 class="mb-3">{{ book.title }}</h1>
-      <h4 class="text-muted mb-2">by {{ book.authors.join(", ") }}</h4>
-      <p class="mb-1"><strong>Publisher:</strong> {{ book.publisher }}</p>
-      <p class="mb-1">
-        <strong>Published:</strong>
-        {{ book.publishedDate | date : "longDate" }}
-      </p>
-      <p class="mb-1"><strong>Language:</strong> {{ book.language }}</p>
-      <p class="mb-1"><strong>Pages:</strong> {{ book.pageCount }}</p>
-      <p class="mb-3">
-        <strong>Categories:</strong> {{ book.categories.join(", ") }}
-      </p>
+      <article>
+        <h1 id="bookTitle" class="mb-3">{{ book.title }}</h1>
+        <h2 class="h4 text-muted mb-2">by {{ book.authors.join(", ") }}</h2>
 
-      <p
-        class="alert alert-warning mt-3"
-        *ngIf="book?.publishedDate | oldBook as message"
-      >
-        {{ message }}
-      </p>
+        <section aria-label="Book Information">
+          <p><strong>Publisher:</strong> {{ book.publisher }}</p>
+          <p>
+            <strong>Published:</strong>
+            {{ book.publishedDate | date : "longDate" }}
+          </p>
+          <p><strong>Language:</strong> {{ book.language }}</p>
+          <p><strong>Pages:</strong> {{ book.pageCount }}</p>
+          <p><strong>Categories:</strong> {{ book.categories.join(", ") }}</p>
+        </section>
 
-      <div class="card bg-light p-4 mb-4">
-        <h3>Description</h3>
-        <p class="lead">{{ book.description }}</p>
-      </div>
+        <p
+          *ngIf="book?.publishedDate | oldBook as message"
+          class="alert alert-warning mt-3"
+          role="alert"
+          aria-live="polite"
+        >
+          {{ message }}
+        </p>
 
-      <button class="btn btn-outline-primary me-2" (click)="goBack()">
-        ← Back to Books
-      </button>
+        <section class="card bg-light p-4 mb-4" aria-labelledby="descHeading">
+          <h3 id="descHeading">Description</h3>
+          <p class="lead">{{ book.description }}</p>
+        </section>
 
-      <button class="btn btn-warning" (click)="startEdit()">
-        ✏️ Edit Book
-      </button>
+        <div>
+          <button
+            type="button"
+            class="btn btn-outline-primary me-2"
+            (click)="goBack()"
+          >
+            ← Back to Books
+          </button>
+
+          <button type="button" class="btn btn-warning" (click)="startEdit()">
+            ✏️ Edit Book
+          </button>
+        </div>
+      </article>
     </div>
   </div>
 </div>

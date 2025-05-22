@@ -1,13 +1,43 @@
 <div class="container mt-5">
-  <h2>Login</h2>
-  <div class="mb-3">
-    <label>Username</label>
-    <input [(ngModel)]="username" class="form-control" />
-  </div>
-  <div class="mb-3">
-    <label>Password</label>
-    <input type="password" [(ngModel)]="password" class="form-control" />
-  </div>
-  <button class="btn btn-primary" (click)="login()">Login</button>
-  <p class="text-danger mt-2" *ngIf="error">{{ error }}</p>
+  <h2 id="loginHeading">Login</h2>
+  <form aria-labelledby="loginHeading" (ngSubmit)="login()" role="form">
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input
+        id="username"
+        name="username"
+        type="text"
+        [(ngModel)]="username"
+        class="form-control"
+        aria-required="true"
+        autocomplete="username"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        [(ngModel)]="password"
+        class="form-control"
+        aria-required="true"
+        autocomplete="current-password"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+
+    <p
+      class="text-danger mt-2"
+      *ngIf="error"
+      role="alert"
+      aria-live="assertive"
+    >
+      {{ error }}
+    </p>
+  </form>
 </div>
