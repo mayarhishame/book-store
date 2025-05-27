@@ -1,23 +1,19 @@
 @if (!selectedBook) {
 <app-navbar></app-navbar>
 <div class="container">
-  <div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="books-grid">
     @for (book of books; track book.id) {
-    <div class="col">
-      <div class="card h-100">
+    <div class="book-card">
+      <div class="card">
         <img
           [src]="book.imageLinks.thumbnail"
-          class="card-img-top img-fluid fixed-height-img"
+          class="book-image"
           alt="{{ book.title }}"
         />
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{ book.title }}</h5>
-          <p class="card-text">{{ book.authors.join(", ") }}</p>
-          <div class="mt-auto">
-            <button class="btn btn-primary" (click)="showDetails(book)">
-              Details
-            </button>
-          </div>
+        <div class="card-body">
+          <h5>{{ book.title }}</h5>
+          <p>{{ book.authors.join(", ") }}</p>
+          <button (click)="showDetails(book)">Details</button>
         </div>
       </div>
     </div>
@@ -25,6 +21,8 @@
   </div>
 </div>
 } @else {
-<app-book-detail [book]="selectedBook" (backClicked)="clearSelection()">
-</app-book-detail>
+<app-book-detail
+  [book]="selectedBook"
+  (backClicked)="clearSelection()"
+></app-book-detail>
 }

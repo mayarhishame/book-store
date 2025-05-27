@@ -12,7 +12,7 @@ import { Book } from '../../../models/book';
   selector: 'app-book-list',
   standalone: false,
   templateUrl: './book-list.component.html',
-  styleUrl: './book-list.component.css',
+  styleUrl: './book-list.component.scss',
 })
 export class BookListComponent {
   books: Book[] = [];
